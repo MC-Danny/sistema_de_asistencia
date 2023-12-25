@@ -17,7 +17,7 @@ if (!empty($_POST['btningresar'])) {
             $_SESSION['id'] = $user->COD_USER;
             $_SESSION['nombre'] = $user->NOMBRES;
             $_SESSION['apellido'] = $user->APELLIDOS;
-            header("location: ../vista/usuario.php");
+            header("location: ../vista/inicio.php");
             exit; // Ensure to terminate script after redirection
         } else {
             // Invalid username or password
