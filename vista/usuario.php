@@ -35,7 +35,6 @@ $usuario = $resultado->fetchAll(PDO::FETCH_OBJ);
     <tr>
       <th scope="col">CODIGO</th>
       <th scope="col">USUARIO</th>
-      <th scope="col">CONTRASEÑA</th>
       <th scope="col">ESTADO</th>
       <th scope="col">NOMBRES</th>
       <th scope="col">APELLIDOS</th>
@@ -54,7 +53,6 @@ $usuario = $resultado->fetchAll(PDO::FETCH_OBJ);
 
 						<td id="texto"><?php echo $dato -> COD_USER;  ?></td>
 						<td id="texto"><?php echo $dato -> NOM_USER; ?></td>
-						<td id="texto"><?php echo $dato -> CONTRA;  ?></td>
 						<td id="texto"><?php echo $dato -> ESTADO;  ?></td>
 						<td id="texto"><?php echo $dato -> NOMBRES;  ?></td>
 						<td id="texto"><?php echo $dato -> APELLIDOS;  ?></td>
@@ -78,15 +76,11 @@ $usuario = $resultado->fetchAll(PDO::FETCH_OBJ);
                         <label for="validationCustom01" class="form-label">ID</label>
                         <input type="text" class="form-control" name="codigo"  value="<?php echo $dato -> COD_USER; ?>" >
                       </div> 
-                      <div class="col-md-4"><br>
+                      <div class="col-md-6"><br>
                         <label for="validationCustom01" class="form-label">USUARIO</label>
                         <input type="text" class="form-control" name="usuario"  value="<?php echo $dato -> NOM_USER; ?>" >
                       </div>
-                      <div class="col-md-6"><br>
-                        <label for="validationCustom02" class="form-label">CONTRASEÑA</label>
-                        <input type="password" class="form-control" name="contra" value="<?php echo $dato -> CONTRA; ?>" >
-                      </div>
-                      <div class="col-md-2"><br>
+                      <div class="col-md-3"><br>
                         <label for="validationCustom04" class="form-label">ESTADO</label>
                         <select class="form-select" name="estado">
                           <option <?php echo ($dato->ESTADO == '') ? 'selected' : ''; ?> disabled value="">Choose...</option>
@@ -94,7 +88,7 @@ $usuario = $resultado->fetchAll(PDO::FETCH_OBJ);
                           <option <?php echo ($dato->ESTADO == '2') ? 'selected' : ''; ?>>2</option>
                         </select>
                       </div>
-                      <div class="col-md-4"><br>
+                      <div class="col-md-6"><br>
                         <label for="validationCustom01" class="form-label">NOMBRES</label>
                         <input type="text" class="form-control" name="nombre" value="<?php echo $dato -> NOMBRES; ?>" >
                       </div>
@@ -111,6 +105,7 @@ $usuario = $resultado->fetchAll(PDO::FETCH_OBJ);
                   </div>
                 </div>
               </div>
+
 					<?php
 						// code...
 					} 

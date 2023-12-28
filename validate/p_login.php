@@ -15,6 +15,8 @@ if (!empty($_POST['btningresar'])) {
         // Check if the user exists
         if ($user) {
             $_SESSION['id'] = $user->COD_USER;
+            $_SESSION['name'] = $user->NOM_USER;
+            $_SESSION['estado'] = $user->ESTADO;
             $_SESSION['nombre'] = $user->NOMBRES;
             $_SESSION['apellido'] = $user->APELLIDOS;
             header("location: ../vista/inicio.php");
