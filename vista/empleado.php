@@ -45,8 +45,12 @@ $empleado = $resultado->fetchAll(PDO::FETCH_OBJ);
 <!-- inicio del contenido principal -->
 <div class="page-content">
   <h2 class="text-center">LISTA DE EMPLEADOS</h2>
-
-  <a href=""class="btn btn-primary btn-rounded" data-toggle="modal" data-target="#staticBackdrop"><i class="fa fa-plus" aria-hidden="true"></i>REGISTRAR</a>
+<div class="mb-2">
+<a href=""class="btn btn-primary btn-rounded" data-toggle="modal" data-target="#staticBackdrop"><i class="fa fa-plus" aria-hidden="true"></i>REGISTRAR</a>
+</div>
+<div class="text-right mb-2">
+<a href="fpdf/reporte_empleado.php" target="_blank" class="btn btn-success btn-rounded"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>  GENERAR PDF</a>
+</div>
 <div style="overflow-x: auto;">
   <table class="table table-sm" id="example" style="width: 100%; max-width: 100%;">
     <!-- ... Tu contenido de la tabla ... -->

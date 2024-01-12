@@ -4,13 +4,30 @@ if(empty($_SESSION['id'])){
 	header("location: login/login.php");
 }elseif(isset($_SESSION["id"])){
   include "../conexion.php";
-  $consulta="SELECT * from tblusuario";	
+  $consulta="SELECT 
+  A.COD_ASIS,
+  E.DNI,
+  E.NOMBRES,
+  E.APELLIDOS,
+  A.ENTRADA,
+  A.SALIDA,
+  AR.NOM_AREA AS nomarea,
+  C.NOM_CARGO AS nomcargo
+FROM 
+  TBLASISTENCIA A
+INNER JOIN 
+  TBLEMPLEADO E ON A.DNI = E.DNI
+LEFT JOIN 
+  TBLAREA AR ON E.COD_AREA = AR.COD_AREA
+LEFT JOIN 
+  TBLCARGO C ON E.COD_CARGO = C.COD_CARGO;
+";	
   $resultado = $cn->query($consulta); 
 }
 else{
   echo "Error al iniciar sesion";
 }	
-$usuario = $resultado->fetchAll(PDO::FETCH_OBJ);
+$asistencia = $resultado->fetchAll(PDO::FETCH_OBJ);
 
 ?>
 <style>
@@ -25,26 +42,32 @@ $usuario = $resultado->fetchAll(PDO::FETCH_OBJ);
 
 <!-- inicio del contenido principal -->
 <div class="page-content">
-  <h2 class="text-center">LISTA DE USUARIOS</h2>
+  <h2 class="text-center">REGISTRO DE ASISTENCIA</h2>
 
-  <a href=""class="btn btn-primary btn-rounded" data-toggle="modal" data-target="#staticBackdrop"><i class="fa fa-plus" aria-hidden="true"></i>REGISTRAR</a>
+<div class="text-right mb-2">
+<a href=""class="btn btn-primary btn-rounded" data-toggle="modal" data-target="#staticBackdrop"><i class="fa fa-plus-circle" aria-hidden="true"></i>  MAS REPORTES</a>
+<a href="../excel/asistencia_excel.php" target="_blank" class="btn btn-success btn-rounded"><i class="fa fa-download" aria-hidden="true"></i>  EXCEL</a>
+<a href="fpdf/PruebaH.php" target="_blank" class="btn btn-success btn-rounded"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>  PDF</a>
+</div>
+ 
 <div style="overflow-x: auto;">
   <table class="table table-sm" id="example" style="width: 100%; max-width: 100%;">
     <!-- ... Tu contenido de la tabla ... -->
     <thead>
     <tr>
       <th scope="col">CODIGO</th>
-      <th scope="col">USUARIO</th>
-      <th scope="col">CONTRASEÑA</th>
-      <th scope="col">ESTADO</th>
-      <th scope="col">NOMBRES</th>
-      <th scope="col">APELLIDOS</th>
-      <th scope="col">ACCIONES</th>
+      <th scope="col">DNI</th>
+      <th scope="col">NOMBRES Y APELLIDOS</th>
+      <th scope="col">ENTRADA</th>
+      <th scope="col">SALIDA</th>
+      <th scope="col">AREA</th>
+      <th scope="col">CARGO</th>
+      <th scope="col">ACCIÓN</th>
     </tr>
   </thead>
   <tbody>
   <?php
-						foreach ($usuario as $dato) {
+						foreach ($asistencia as $dato) {
 
 					?>
 
@@ -52,15 +75,15 @@ $usuario = $resultado->fetchAll(PDO::FETCH_OBJ);
 					<tr>
 						
 
-						<td id="texto"><?php echo $dato -> COD_USER;  ?></td>
-						<td id="texto"><?php echo $dato -> NOM_USER; ?></td>
-						<td id="texto"><?php echo $dato -> CONTRA;  ?></td>
-						<td id="texto"><?php echo $dato -> ESTADO;  ?></td>
-						<td id="texto"><?php echo $dato -> NOMBRES;  ?></td>
-						<td id="texto"><?php echo $dato -> APELLIDOS;  ?></td>
+						<td id="texto"><?php echo $dato -> COD_ASIS;  ?></td>
+						<td id="texto"><?php echo $dato -> DNI; ?></td>
+						<td id="texto"><?php echo $dato -> NOMBRES." ".$dato -> APELLIDOS;  ?></td>
+						<td id="texto"><?php echo $dato -> ENTRADA;  ?></td>
+						<td id="texto"><?php echo $dato -> SALIDA;  ?></td>
+						<td id="texto"><?php echo $dato -> nomarea;  ?></td>
+            <td id="texto"><?php echo $dato -> nomcargo;  ?></td>
 						<td>
-              <a href=""class="btn btn-success btn-rounded"  data-toggle="modal" data-target="#staticBackdrop1<?php echo $dato -> COD_USER;  ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Editar</a>
-              <a href="../validate/eliminar_usuario.php?id=<?php echo $dato -> COD_USER;  ?>" onclick="advertencia(event)" class="btn btn-danger btn-rounded"><i class="fa fa-trash" aria-hidden="true"></i></i>Eliminar</a>
+              <a href="../validate/eliminar_asistencia.php?id=<?php echo $dato -> COD_ASIS;  ?>" onclick="advertencia(event)" class="btn btn-danger btn-rounded"><i class="fa fa-trash" aria-hidden="true"></i></i>  Eliminar</a>
             </td>
 						</tr>
             <div class="modal fade" id="staticBackdrop1<?php echo $dato -> COD_USER;  ?>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -172,46 +195,50 @@ if(isset($_SESSION['uvacio'])){
 ?>
 
 <!-- Button trigger modal -->
+<?php
+            include "../conexion.php";
+          // Consulta para obtener los datos de la tabla 
+            $consulta = "SELECT * FROM TBLEMPLEADO";
+            $stmt = $cn->query($consulta);
+            $EMPLE = $stmt->fetchAll(PDO::FETCH_ASSOC);
+              
+          ?>
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header ">
-        <h5 class="modal-title text-center flex-grow-1" id="staticBackdropLabel">REGISTRAR NUEVO USUARIO</h5>
+        <h5 class="modal-title text-center flex-grow-1" id="staticBackdropLabel">ASISTENCIAS DE EMPLEADOS</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; right: 20px;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form  action="../validate/registrar_usuario.php" method="POST" novalidate>
+      <form  action="fpdf/reporte_asistencia_fecha.php" method="POST">
       <div class="modal-body"> 
-        <div class="col-md-5">
-          <label for="validationCustom01" class="form-label">USUARIO</label>
-          <input type="text" class="form-control" name="usuario"   >
+        <div class="col-md-12 mb-2">
+          <label for="validationCustom01" class="form-label text-center">FECHA INICIO</label>
+          <input type="date" class="form-control" name="fechainicio"  required >
         </div>
-        <div class="col-md-5">
-          <label for="validationCustom02" class="form-label">CONTRASEÑA</label>
-          <input type="password" class="form-control" name="contra" >
+        <div class="col-md-12 mb-2">
+          <label for="validationCustom02" class="form-label text-center">FECHA FINAL</label>
+          <input type="date" class="form-control" name="fechafinal" required>
         </div>
-        <div class="col-md-2">
-          <label for="validationCustom04" class="form-label">ESTADO</label>
-          <select class="form-select" name="estado" >
-            <option selected disabled value=""></option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-          </select>
+        <div class="col-md-12 mb-2">
+          <label for="validationCustom04" class="form-label text-center">EMPLEADO</label>
+          <select class="form-select" name="empleado" required>
+                <option value="todos">Seleccionar todos los empleados</option>
+                <?php
+                // Iterar sobre los datos de la tabla 'tblcargo' para crear las opciones
+                foreach ($EMPLE as $EMPLEA) {
+                    echo "<option value='" . $EMPLEA['DNI'] . "'>" . $EMPLEA['NOMBRES']." ". $EMPLEA['APELLIDOS'] . "</option>";
+                }
+                ?>
+            </select>
         </div>
-        <div class="col-md-6"><br>
-          <label for="validationCustom01" class="form-label">NOMBRES</label>
-          <input type="text" class="form-control" name="nombre"  >
-        </div>
-        <div class="col-md-6"><br>
-          <label for="validationCustom02" class="form-label">APELLIDOS</label>
-          <input type="text" class="form-control"name="apellido"  ><br>
-          </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-rounded" data-dismiss="modal">Volver</button>
-            <button type="submit" class="btn btn-primary btn-rounded">Registrar</button>
-          </div>
+          <button type="submit"  class="btn btn-primary btn-rounded">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>  GENERAR PDF</button> 
+        </div>
       </form>
     </div>
     </div>

@@ -16,7 +16,7 @@
     <!-- datatables -->
     <script src="../public/app/publico/js/lib/datatables-net/datatables.min.js"></script>
 
-
+  
 
     <!-- sweet alert -->
     <script src="../public/sweet/js/sweetalert2.js"></script>
@@ -193,5 +193,4 @@
 
 
     </body>
-
     </html>

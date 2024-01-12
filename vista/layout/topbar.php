@@ -149,6 +149,7 @@
                                     <h5 class="p-2 text-center bg-primary"><?= $_SESSION["nombre"]." ".$_SESSION['apellido'] ?></h5>
                                     <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal5" href=""><span class="font-icon glyphicon glyphicon-user"></span>Perfil</a>
                                     <a class="dropdown-item"data-toggle="modal" data-target="#staticBackdrop2" href=""><span class="font-icon glyphicon glyphicon-lock"></span>Cambiar contraseña</a>
+                                    <a class="dropdown-item" href="../asistencia.php"><span class="font-icon glyphicon glyphicon-list-alt"></span>Registro de asistencia</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="../cerrar.php">
                                         <span class="font-icon glyphicon glyphicon-log-out"></span>salir
@@ -177,9 +178,10 @@
                     <div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                            <div class="modal-header">
+                            <div id="titulo" class="modal-header">
                                 <h5 class="modal-title text-center flex-grow-1" id="exampleModalLabel">PERFIL DE USUARIO</h5>
-                                <a href=""class="btn btn-success btn-rounded" style="position: absolute; right: 20px;"  data-toggle="modal" data-target="#staticBackdrop6"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                <a href=""class="btn btn-success btn-rounded" style="position: absolute; right: 20px;"  
+                                data-toggle="modal" data-target="#staticBackdrop6"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -198,16 +200,16 @@
                         </div>
                     </div>
 
-                <div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div  class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-sm">
                         <div class="modal-content">
-                        <div class="modal-header ">
+                        <div id="titulo" class="modal-header ">
                             <h5 class="modal-title text-center flex-grow-1" id="staticBackdropLabel">CAMBIAR CONTRASEÑA</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; right: 20px;">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form  action="../validate/cambiar_clave.php" method="POST" novalidate>
+                        <form id="cuerpo"  action="../validate/cambiar_clave.php" method="POST" novalidate>
                             <div class="modal-body"> 
                             <div hidden class="col-md-5">
                             <label for="validationCustom01" class="form-label">ID</label>
@@ -234,7 +236,7 @@
                         </div>
                     </div>
                 </div>
-                <?php
+<?php
 if(isset($_SESSION['cambiar'])){
   $res=$_SESSION['cambiar'];?>
   <script>
@@ -323,13 +325,13 @@ if(isset($_SESSION['cambiar'])){
             <div class="modal fade" id="staticBackdrop6" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
-                    <div class="modal-header ">
+                    <div id="titulo" class="modal-header ">
                       <h5 class="modal-title text-center flex-grow-1" id="staticBackdropLabel">ACTUALIZAR DATOS</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; right: 20px;">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
-                    <form class="row g-3 needs-validation"action="../validate/actualizar_usuario.php" method="POST" novalidate>
+                    <form class="row g-3 needs-validation"action="../validate/actualizar_dato_user.php" method="POST" novalidate>
                     <div class="modal-body">
                       <div hidden class="col-md-2"><br>
                         <label for="validationCustom01" class="form-label">ID</label>

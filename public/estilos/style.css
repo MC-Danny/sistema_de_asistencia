@@ -1,12 +1,11 @@
 h1{
+    font-family: 'Lobster', sans-serif;
+    font-family: 'Noto Serif', serif;
     text-align: center;
-    font-family: 'Abril Fatface', serif;
-    font-family: 'Alfa Slab One', serif;
-    font-family: 'Anton', sans-serif;
-    font-family: 'Concert One', sans-serif;
-    font-family: 'Libre Baskerville', serif;
-    font-family: 'Neuton', serif;
-    font-family: 'Patua One', serif;
-    font-family: 'PT Sans', sans-serif;
-    font-family: 'Russo One', sans-serif;
+}
+#titulo{
+    background: rgb(11, 150, 214);
+}
+#cuerpo{
+    background: rgb(241, 239, 236);
 }

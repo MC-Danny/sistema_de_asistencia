@@ -7,7 +7,7 @@ if(!isset($_GET["id"])){
 	include "../conexion.php";
 	$id=$_GET['id'];
 	
-	$consulta ="DELETE FROM tblusuario WHERE COD_USER=?";
+	$consulta ="DELETE FROM tblasistencia WHERE COD_ASIS=?";
 	$sql= $cn ->prepare($consulta);
 	$resultado = $sql-> execute([$id]);
 	if($resultado==true){?>
@@ -22,7 +22,7 @@ if(!isset($_GET["id"])){
             })
         </script>
     <?php
-    header("Location:../vista/usuario.php");
+    header("Location:../vista/inicio.php");
 }	
 	else
 		echo "error al guardar"
